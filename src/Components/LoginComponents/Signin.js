@@ -6,15 +6,20 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Here you would handle the form submission,
-    // e.g., send the data to a server.
-    console.log("Form submitted:", {
-      email,
-      password,
-    });
+    try {
+      const res = await axios.post(
+        `https://dev-project-ecommerce.upgrad.dev/api/auth/signin`,
+        {
+          email,
+          password,
+        }
+      );
+      console.log(res?.data?.status);
+    } catch (error) {
+      console.log(error?.status);
+    }
   };
 
   return (
@@ -50,7 +55,7 @@ const Signin = () => {
             Login
           </a>
           <a
-            href=""
+            href="/signup"
             style={{
               color: "#ffff",
               fontSize: 13,
@@ -170,6 +175,7 @@ const Signin = () => {
             </button>
             <div style={{ marginTop: 10 }}>
               <a
+                href="/signup"
                 style={{
                   fontSize: 12,
                   color: "purple",
